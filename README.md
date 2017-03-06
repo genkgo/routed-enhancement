@@ -153,3 +153,10 @@ export default class {
   
 }
 ```
+
+## Requirements
+
+In order to use this package in the browser, one needs to transpile the ES6 code used in the package to javascript
+that is supported by the browser. You could use [Babel](https://babeljs.io/) for this purpose. Please keep in mind that
+you also need to transpile dynamic imports. Finally, this packages also leans on jquery, which is a dependency of this
+package.
