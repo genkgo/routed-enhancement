@@ -160,3 +160,18 @@ In order to use this package in the browser, one needs to transpile the ES6 code
 that is supported by the browser. You could use [Babel](https://babeljs.io/) for this purpose. Please keep in mind that
 you also need to transpile dynamic imports. Finally, this packages also leans on jquery, which is a dependency of this
 package.
+
+## Usage with Genkgo DTK
+
+To use it with the [Genkgo DTK](https://github.com/genkgo/dtk), you need to set the transpile setting to `true` because
+vendor packages are not transpiled by default.
+
+```js
+new DtkApp({
+  "npm": {
+    "routed-enhancement": {
+      "transpile": true
+    }
+  }
+})
+```
