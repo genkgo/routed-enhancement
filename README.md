@@ -134,7 +134,7 @@ Example.
 // in the router
 router.scroll((scrollTop) => scrollTop > 100, '.logo', 'logo-controller');
 
-// in banner-controller.js
+// in logo-controller.js
 export default class {
   
   activate($selector, scrollTop) {
