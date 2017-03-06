@@ -1,10 +1,11 @@
 {
-    "name": "routed-enhancement",
-    "main": "src/index.js",
-    "engines": {
-        "node": ">=6.0.0"
-    },
-    "dependencies": {
-        "jquery": "*"
-    }
+  "name": "routed-enhancement",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "jquery": "*"
+  },
+  "version": "0.1.0"
 }
