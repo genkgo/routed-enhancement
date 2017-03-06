@@ -45,7 +45,7 @@ The following methods are available on the router.
 
 The selector method looks for available DOM elements on the page. Only when at least 1 element is found, the
 controller is imported and executed. The selector is not a live selector. So the element has to be on the page when the
-page is ready (or when the router dispatched, but that should in almost every case).
+page is ready (or when the router dispatched, but that is true in almost every case).
 
 ```js
 selector(cssSelector, moduleNameOfController);
@@ -79,7 +79,7 @@ Example
 // in the router
 router.ready('polyfills');
 
-// in polyfill.js
+// in polyfills.js
 export default class {
   
   ready() {
@@ -95,7 +95,8 @@ export default class {
 
 The resize method is fired when the screen is resized. This can be usefull to execute scripts when the page is
 resized. Only when the constraint returns true and the when at least 1 element that satisfies the css selector is found,
-the controller is imported and executed.
+the controller is imported and executed. The method `activate` and `deactivate` on the controller are executed only
+when the constraint switches state (true/false).
 
 ```js
 resize(constraint, cssSelector, moduleNameOfController);
@@ -110,10 +111,12 @@ router.resize((width, height) => width > 960 && height < 960, '.banners', 'banne
 export default class {
   
   activate($selector, width, height) {
+    // the window size satisfies the constraint
     $selector.find('a').unbind('click');
   }
   
   deactivate ($selector, width, height) {
+    // the window size does not satisfy the constraint
     $selector.find('a').click(/* do something with the click here */);
   }
   
@@ -123,7 +126,8 @@ export default class {
 ### Scroll method
 
 The scroll method is fired when the scrollbar is moved. Only when the constraint returns true and the when at least 1
-element that satisfies the css selector is found, the controller is imported and executed.
+element that satisfies the css selector is found, the controller is imported and executed. The method `activate`
+and `deactivate` on the controller are executed only when the constraint switches state (true/false).
 
 ```js
 scroll(constraint, cssSelector, moduleNameOfController);
@@ -138,10 +142,12 @@ router.scroll((scrollTop) => scrollTop > 100, '.logo', 'logo-controller');
 export default class {
   
   activate($selector, scrollTop) {
+    // the scroll position satisfies the constraint
     $selector.addClass('scrolled');
   }
   
   deactivate ($selector, scrollTop) {
+    // the scroll position does not satisfy the constraint
     $selector.removeClass('scrolled');
   }
   
