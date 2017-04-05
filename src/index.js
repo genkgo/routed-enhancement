@@ -71,8 +71,7 @@ export default class {
             const Controller = imported.default;
             let controller = new Controller;
             let active = false;
-
-            $window.resize(() => {
+            let callback = () => {
               let width = $window.width();
               let height = $window.height();
 
@@ -87,7 +86,10 @@ export default class {
               }
 
               active = !active;
-            });
+            };
+
+            $window.resize(callback);
+            callback();
           }
         );
       }
@@ -105,8 +107,7 @@ export default class {
             const Controller = imported.default;
             let controller = new Controller;
             let active = false;
-
-            $window.scroll(() => {
+            let callback = () => {
               let scrollTop = $window.scrollTop();
 
               if (active === constraint(scrollTop)) {
@@ -120,7 +121,10 @@ export default class {
               }
 
               active = !active;
-            });
+            };
+
+            $window.scroll(callback);
+            callback();
           }
         );
       }
