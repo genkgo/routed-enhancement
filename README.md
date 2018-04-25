@@ -70,7 +70,8 @@ export default class {
 
 The component method looks for available DOM elements on the page and creates class instances per element. The element
 is injected in the constructor. The selector is not a live selector. So the element has to be on the page when the page 
-is ready (or when the router dispatched, but that is true in almost every case).
+is ready (or when the router dispatched, but that is true in almost every case). The advantage over `selector` is that
+an instance is created per element, which allows the instance to carry/remember state of the element.
 
 ```js
 component(cssSelector, moduleNameOfController);
