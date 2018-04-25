@@ -66,6 +66,39 @@ export default class {
 }
 ```
 
+### Component method
+
+The component method looks for available DOM elements on the page and creates class instances per element. The element
+is injected in the constructor. The selector is not a live selector. So the element has to be on the page when the page 
+is ready (or when the router dispatched, but that is true in almost every case).
+
+```js
+component(cssSelector, moduleNameOfController);
+```
+
+Example
+```js
+// in the router
+router.component('form', 'form-component');
+
+// in nav-controller.js
+export default class {
+  
+  constructor($selector) {
+    this.$form = $selector;
+  }
+  
+  initialize() {
+    this.$form.submit(
+      e => {
+        
+      }
+    );
+  }
+  
+}
+```
+
 ### Ready method
 
 The ready method is fired when the DOM is ready. This can be usefull to attach polyfills.

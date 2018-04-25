@@ -8,6 +8,7 @@ export default class {
     this.whenSize = [];
     this.whenScroll = [];
     this.selectors = [];
+    this.components = [];
   }
 
   ready(moduleName) {
@@ -16,6 +17,13 @@ export default class {
 
   selector(selector, moduleName) {
     this.selectors.push({
+      'selector': selector,
+      'moduleName': moduleName
+    });
+  }
+
+  component(selector, moduleName) {
+    this.components.push({
       'selector': selector,
       'moduleName': moduleName
     });
@@ -46,6 +54,7 @@ export default class {
     this.actionResize();
     this.actionScroll();
     this.actionSelector();
+    this.actionComponent();
   }
 
   actionReady() {
@@ -140,6 +149,25 @@ export default class {
             const Controller = imported.default;
             let controller = new Controller;
             controller.process($selector);
+          }
+        );
+      }
+    }
+  }
+
+  actionComponent() {
+    for (let { selector, moduleName} of this.components) {
+      let $selector = $(selector);
+      if ($selector.length > 0) {
+        import(this.namespace + '/' + moduleName).then(
+          (imported) => {
+            $selector.each(
+              function() {
+                const Component = imported.default;
+                let component = new Component ($(this));
+                component.initialize();
+              }
+            );
           }
         );
       }
