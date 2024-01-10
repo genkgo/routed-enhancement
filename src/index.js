@@ -2,8 +2,13 @@ import $ from 'jquery';
 
 export default class {
 
-  constructor(namespace) {
-    this.namespace = namespace;
+  constructor(loaderOrNamespace) {
+    if (typeof loaderOrNamespace === 'string') {
+      this.moduleLoader = (moduleName) => import(loaderOrNamespace + '/' + moduleName);
+    } else {
+      this.moduleLoader = loaderOrNamespace;
+    }
+
     this.whenReady = [];
     this.whenSize = [];
     this.whenScroll = [];
@@ -59,7 +64,7 @@ export default class {
 
   actionReady() {
     for (let moduleName of this.whenReady) {
-      import(this.namespace + '/' + moduleName).then(
+      this.moduleLoader(moduleName).then(
         (imported) =>  {
           const Controller = imported.default;
           let controller = new Controller;
@@ -75,7 +80,7 @@ export default class {
       let $selector = $(selector);
 
       if ($selector.length > 0) {
-        import(this.namespace + '/' + moduleName).then(
+        this.moduleLoader(moduleName).then(
           (imported) =>  {
             const Controller = imported.default;
             let controller = new Controller;
@@ -111,7 +116,7 @@ export default class {
       let $selector = $(selector);
 
       if ($selector.length > 0) {
-        import(this.namespace + '/' + moduleName).then(
+        this.moduleLoader(moduleName).then(
           (imported) =>  {
             const Controller = imported.default;
             let controller = new Controller;
@@ -144,7 +149,7 @@ export default class {
     for (let { selector, moduleName} of this.selectors) {
       let $selector = $(selector);
       if ($selector.length > 0) {
-        import(this.namespace + '/' + moduleName).then(
+        this.moduleLoader(moduleName).then(
           (imported) =>  {
             const Controller = imported.default;
             let controller = new Controller;
@@ -159,7 +164,7 @@ export default class {
     for (let { selector, moduleName} of this.components) {
       let $selector = $(selector);
       if ($selector.length > 0) {
-        import(this.namespace + '/' + moduleName).then(
+        this.moduleLoader(moduleName).then(
           (imported) => {
             $selector.each(
               function() {
