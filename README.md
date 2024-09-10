@@ -10,11 +10,17 @@ Instantiating a new router is easy. An see the an easy example below.
 ```js
 import Router from 'routed-enhancement';
 
-// instantiate the route
-let namespace = 'my-namespace';
-let router = new Router(namespace);
+// vite way to support importing multiple modules
+// see https://vitejs.dev/guide/features#glob-import
+const modules = import.meta.glob('./controller/**/*.js');
+
+// pass our module loader to the router
+let router = new Router((moduleName) => {
+  return modules[`./controller/${moduleName}.js`]();
+});
 
 // now we can add routes
+// this selector will dispatch every <nav> tag to a nav-controller class
 router.selector('nav', 'nav-controller');
 
 // dispatch the routes (once the dom is ready, which is been taken care of in the router). 
